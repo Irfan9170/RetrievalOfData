@@ -156,3 +156,110 @@ function getDataFromApi(){
 
 
 }
+
+// Using fetch api 
+
+document.getElementById('button4').addEventListener('click',fechData);
+
+document.getElementById('button5').addEventListener('click',fechJsonData);
+
+document.getElementById('button6').addEventListener('click',fechJsonArrayData);
+
+document.getElementById('button7').addEventListener('click',fechExternalData);
+
+function fechData(){
+
+    fetch('data.txt').then(function(res){
+                return (res.text());
+            })
+            .then(function(data){
+        
+             document.getElementById('output1').innerHTML=data;
+            })
+ }
+
+ function fechJsonData(){
+
+    fetch('customers.json').then(function(res){
+        return res.json();
+
+
+    })
+    .then(function(data){
+        console.log(data);
+
+        let output='';
+
+        data.forEach(function (data){
+
+            output +=`
+            
+            <ul>
+            <li>Title:${data.id}</li>
+            <li>Title:${data.Name}</li>
+            <li>Title:${data.age}</li>
+            </ul>`;
+        })
+        document.getElementById('output1').innerHTML=output;
+        // const output = JSON.parse(data);
+        
+          
+        
+
+    })
+
+
+ }
+
+ function fechJsonArrayData(){
+    fetch('customer.json').then(function(res){
+        return res.json();
+
+
+    })
+    .then(function(data){
+        console.log(data);
+
+        // console.log(`${data.title}`)
+        output=`<ul>
+        <li>Title: ${data.title}</li>
+        <li> Data: ${data.Data}</li>
+        </ul>`;
+        
+          
+        document.getElementById('output1').innerHTML=output;
+
+    })
+
+ }
+
+function fechExternalData(){
+fetch('https://api.github.com/users')
+
+.then(function(res){
+
+    return res.json();
+
+
+}).then(function(data){
+
+    console.log(data);
+
+    let output='';
+    data.forEach(function(out){
+
+        output+= `
+        <ul>
+        <li>User:${out.login}</li>
+
+
+        </ul>
+        
+        
+        `
+    })
+      document.getElementById('output1').innerHTML=output;
+
+})
+
+}
